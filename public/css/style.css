@@ -1,0 +1,21 @@
+.mainDiv{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+}
+body{
+    background-color: gray;
+}
+.keyBlocks{
+    background-color: pink;
+
+    position: absolute;
+    bottom: 0;
+}
+#divBLOCK_{
+    position: absolute;
+    background-color: purple;
+    bottom: 0;
+}
