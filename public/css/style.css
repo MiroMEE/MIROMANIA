@@ -1,21 +1,112 @@
 .mainDiv{
-    position: absolute;
+    position: fixed;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    background-color: white;
+    background-color: rgb(71, 71, 71);
+    border-radius: 5px;
+    border: gray solid 1px;
+    transition: border-color 0.2s;
 }
 body{
-    background-color: gray;
+    background-color: rgb(88, 88, 88);
 }
 .keyBlocks{
+    transition: background-color 0.1s;
     background-color: pink;
-
+    border: black solid 4px;
     position: absolute;
     bottom: 0;
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 #divBLOCK_{
+    background-color: black;
+    border: black solid 4px;
+    border-radius: 20%;
+    transition: left 0.01s;
     position: absolute;
-    background-color: purple;
-    bottom: 0;
+}
+#padoru{
+    background-color: white;
+    border-radius: 20%;
+    border: black solid 4px;
+    position: absolute;
+}
+#startButton{
+    transition: background-color 0.5s,border 0.5s, color 0.5s,border-radius 0.5s;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+    background-color: grey;
+    position: absolute;
+    width: 40%;
+    height: 25%;
+    border: solid gray;
+    border-radius: 1%;
+    font-size: 500%;
+}
+#startButton:hover{
+    cursor: pointer;
+    border-radius: 50px;
+    color: white;
+    background-color: black;
+    border: solid black;
+}
+.scoreboard{
+    position: absolute;
+    right: 0;
+    transform: translateX(105%);
+    top: 10%;
+    height: 20%;
+    width: 25%;
+    background-color: black;
+    border-top-right-radius: 1%;
+    border-bottom-right-radius: 1%;
+}
+.scoreboard:hover{
+    background-color: rgb(61, 61, 61);
+    cursor: pointer;
+}
+#scoreUp{
+    position: absolute;
+    float: left;
+    transition: border-radius 0.5s;
+    background-color: rgb(103, 116, 94);
+    width: 100%;
+    height: 50%;
+    top: 0;
+    transform: translateY(0%);
+}
+#scoreDown{
+    position: absolute;
+    float: left;
+    transition: border-radius 0.5s;
+    background-color: rgb(116, 94, 94);
+    width: 100%;
+    height: 50%;
+    top: 0;
+    transform: translateY(100%);
+}
+#scoreDown:hover{
+    border-bottom-right-radius: 25px;
+}
+#scoreUp:hover{
+    border-top-right-radius: 25px;
+}
+#scoreUp p{
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    float: left;
+    font-size: 200%;
+    transform: translateY(-50%);
+}
+#scoreDown p{
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    float: left;
+    font-size: 200%;
+    transform: translateY(-50%);
 }
