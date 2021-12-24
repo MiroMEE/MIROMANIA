@@ -1,5 +1,9 @@
 const mainDiv = document.querySelector('.mainDiv');
 const underDiv = document.querySelector('.spod');
+const PADORUU = document.querySelector('.PADORUU');
+const remP = document.querySelector('#scoreUpP');
+const remM = document.querySelector('#scoreDownP');
+let players=0,Buttons=0,divBLOCKSSS = [],storage = [],grc=true,dbb = [],ifitworkthenitsfine =[],rememberPlus = 0,rememberMinus=0,arx=[];
 //set
 let main_width = 900;
 let key1='y',key2='x',key3='c',key4='v',key5='b',key6='n',key7='m',key8='a',key9='s',key10='d';
@@ -8,7 +12,6 @@ let main_height = main_width/1.5;
 let algor = (main_width/14.0625);
 mainDiv.style.height = main_height+'px';
 mainDiv.style.width = main_width+'px';
-let players=0,Buttons=0,divBLOCKSSS = [],storage = [],grc=true,dbb = [],ifitworkthenitsfine =[];
 //functions
 class movementBLOCK{
     moveX(d,a){
@@ -17,15 +20,29 @@ class movementBLOCK{
         };
     };
 };
+class padorumov{
+    PadomoveY(a,pado){
+        pado.style.top = (a+(main_width/90))+"px";
+    };
+};
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+};
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(min+max);
+    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+};
+const effect = async()=>{
+    mainDiv.style.borderColor = "red";
+    await sleep(50)
+    mainDiv.style.borderColor = "gray";
+};
 const chngBC = async(value)=>{
     value.style.backgroundColor = "black"
     await sleep(100)
     value.style.backgroundColor = "pink"
 };
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-};
-
 function createBlock(x){
     const spodAll = document.querySelectorAll('.keyBlocks');
     for(let iji=0;iji<spodAll.length;iji++){
@@ -58,7 +75,6 @@ function BLOCK(x,y){
         switch (true) {
             case (event.key==key1||event.key==key1.toLocaleUpperCase()) && Buttons>=1:
                 cla.moveX(x[0],0);
-                console.log(dbb[0]);
                 chngBC(ifitworkthenitsfine[0]);
                 break;
             case (event.key==key2||event.key==key2.toLocaleUpperCase()) && Buttons>=2:
@@ -128,78 +144,10 @@ const changePlayers = (playerss)=>{
         ijx+=2;
     };
 };
-
-
-
 const changeButtons = (value)=>{
     Buttons = value;
     BLOCK(createBlock(Buttons));
 };
-const ending = ()=>{
-    changeButtons(0);
-    changePlayers(0);
-    grc = true;
-    console.log(rememberPlus,rememberMinus);
-};
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(min+max);
-    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
-  }
-// changeButtons(value),changePlayers(value),await sleep(value)
-async function startGm(){
-    document.getElementById('startButton').remove();
-    grc = false;
-    //STARTUPGAME
-
-    translater();
-    
-};
-
-async function writer(){
-    while(true){
-
-        await translater();
-
-        await sleep(1000);
-    }
-};
-async function translater(){
-    const text = [
-        '0|6','1|2','2|0','3|100','2|0','4|3','3|2000','0|4','1|1','3|2000','4|3'//zítra WRITER
-    ];
-    for(let p=0;p<text.length;p++){
-        let A = Number(text[p].split('|')[0]);
-        let B = Number(text[p].split('|')[1]);
-        switch (true) {
-            case A==0:
-                changeButtons(B);  
-                break;
-            case A==1:
-                changePlayers(B);  
-                break;
-            case A==2:
-                PADORU(B);
-                break;
-            case A==3:
-                await sleep(B);
-                break;
-            case A==4:
-                await PADORU(B);
-                break;
-            case A==5:
-                await ending();
-            default:
-                break;
-        };
-    };
-};
-class padorumov{
-    PadomoveY(a,pado){
-        pado.style.top = (a+(main_width/90))+"px";
-    };
-};
-let arx=[];
 function positionFromBlocks(){
     const infoFromUnderDiv = document.querySelectorAll('#divBLOCK_');
     arx = [];
@@ -208,24 +156,20 @@ function positionFromBlocks(){
     };
     return arx;
 };
-const remP = document.querySelector('#scoreUpP');
-const remM = document.querySelector('#scoreDownP');
-let rememberPlus = 0,rememberMinus=0;
 let scorePlus = (val,lav)=>{
     rememberPlus += val;
     rememberMinus += lav;
     remP.innerText = rememberPlus;
     remM.innerText = rememberMinus;
-    effect();
 };
-const effect = async()=>{
-    mainDiv.style.borderColor = "red";
-    await sleep(50)
-    mainDiv.style.borderColor = "gray";
+const ending = ()=>{
+    changeButtons(0);
+    changePlayers(0);
+    grc = true;
+    console.log(rememberPlus,rememberMinus);
 };
-const pady = new padorumov();
-const PADORUU = document.querySelector('.PADORUU');
 const PADORU = async(value)=>{
+    const pady = new padorumov();
     const pado = document.createElement('div');
     pado.id = "padoru";
     pado.style.width = algor + "px";
@@ -253,7 +197,84 @@ const PADORU = async(value)=>{
         if(pado.offsetTop>main_height){
             pado.remove();
             scorePlus(0,1);
+            effect();
             break;
+        };
+    };
+};
+async function startGm(){
+    document.getElementById('startButton').remove();
+    grc = false;
+    //STARTUPGAME
+    translater();
+};
+let wButtons = 4;
+async function writer(){
+    const memory = [];
+    document.addEventListener('keypress',async(event)=>{
+        switch (true) {
+            case (event.key==key1||event.key==key1.toLocaleUpperCase()) && wButtons>=1:
+                memory.push('2|0');
+                break;
+            case (event.key==key2||event.key==key2.toLocaleUpperCase()) && wButtons>=2:
+                memory.push('2|1');
+                break;
+            case (event.key==key3||event.key==key3.toLocaleUpperCase()) && wButtons>=3:
+                memory.push('2|2');
+                break;
+            case (event.key==key4||event.key==key4.toLocaleUpperCase()) && wButtons>=4:
+                memory.push('2|3');
+                break;
+            case (event.key==key5||event.key==key5.toLocaleUpperCase()) && wButtons>=5:
+                break;
+            case (event.key==key6||event.key==key6.toLocaleUpperCase()) && wButtons>=6 : 
+
+                break;
+            case (event.key==key7||event.key==key7.toLocaleUpperCase()) && wButtons>=7 : 
+
+                break;
+            case (event.key==key8||event.key==key8.toLocaleUpperCase()) && wButtons>=8 : 
+
+                break;
+            case (event.key==key9||event.key==key9.toLocaleUpperCase()) && wButtons>=9 : 
+
+                break;
+            case (event.key==key10||event.key==key10.toLocaleUpperCase()) && wButtons>=10 : 
+                
+                break;
+            default:
+                console.log(memory);
+                break;
+        };
+    });
+};
+async function translater(){
+    const text = [
+        "0|4","1|1","2|0","2|1","2|2","2|3","2|2","2|1","2|0","2|1","2|3","2|0","2|2","2|1","2|3","2|0","2|2","2|1","2|3","2|0","2|2","2|1","2|3","2|0","2|2","2|1","2|3","2|0","2|3","2|1","2|3","2|0","2|3","2|1","2|3","2|0","2|3","2|1","2|3","2|0","2|3","2|2","2|1","2|3","2|0","2|2","2|1","2|3","2|0","2|2","2|1","2|3","2|0","2|2","2|1","2|3","2|0","2|2","2|1","2|3","2|0","2|2","2|1","2|3","2|0","2|2","2|1","2|3","2|0","2|2","2|1","2|3","2|0","2|2","2|1","2|3","2|0","2|2","2|1","2|3","2|0","2|2","2|1","2|3","2|0","2|2","2|1","2|3","2|2","2|3","2|2","2|3","2|1","2|0","2|1","2|0","2|1","2|0","2|1","2|0","2|1","2|0","2|1","2|0","2|0","2|1","2|0","2|1","2|0","2|1","2|3","2|0","2|1","2|2","2|3","2|0","2|1","2|2","2|3","2|0"
+    ];
+    for(let p=0;p<text.length;p++){
+        let A = Number(text[p].split('|')[0]);
+        let B = Number(text[p].split('|')[1]);
+        switch (true) {
+            case A==0:
+                changeButtons(B);  
+                break;
+            case A==1:
+                changePlayers(B);  
+                break;
+            case A==2:
+                await PADORU(B);
+                break;
+            case A==3:
+                await sleep(B);
+                break;
+            case A==4:
+                PADORU(B);
+                break;
+            case A==5:
+                await ending();
+            default:
+                break;
         };
     };
 };
