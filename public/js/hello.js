@@ -5,7 +5,7 @@ const remP = document.querySelector('#scoreUpP');
 const remM = document.querySelector('#scoreDownP');
 let players=0,Buttons=0,divBLOCKSSS = [],storage = [],grc=true,dbb = [],ifitworkthenitsfine =[],rememberPlus = 0,rememberMinus=0,arx=[];
 //set
-let main_width = 900;
+let main_width = 1500;
 let key1='y',key2='x',key3='c',key4='v',key5='b',key6='n',key7='m',key8='a',key9='s',key10='d';
 //auto
 let main_height = main_width/1.5;
@@ -141,7 +141,7 @@ const changePlayers = (playerss)=>{
             storage.push(ij);
         };
         divBLOCKSSS[ij].style.left = dbb[ijx]+"px";
-        ijx+=2;
+        ijx+=Math.round(Buttons/players);
     };
 };
 const changeButtons = (value)=>{
@@ -208,7 +208,7 @@ async function startGm(){
     //STARTUPGAME
     translater();
 };
-let wButtons = 4;
+let wButtons = 7;
 async function writer(){
     const memory = [];
     document.addEventListener('keypress',async(event)=>{
@@ -226,21 +226,22 @@ async function writer(){
                 memory.push('2|3');
                 break;
             case (event.key==key5||event.key==key5.toLocaleUpperCase()) && wButtons>=5:
+                memory.push('2|4');
                 break;
             case (event.key==key6||event.key==key6.toLocaleUpperCase()) && wButtons>=6 : 
-
+                memory.push('2|5');
                 break;
             case (event.key==key7||event.key==key7.toLocaleUpperCase()) && wButtons>=7 : 
-
+                memory.push('2|6');
                 break;
             case (event.key==key8||event.key==key8.toLocaleUpperCase()) && wButtons>=8 : 
-
+                memory.push('2|7');
                 break;
             case (event.key==key9||event.key==key9.toLocaleUpperCase()) && wButtons>=9 : 
-
+                memory.push('2|8');
                 break;
             case (event.key==key10||event.key==key10.toLocaleUpperCase()) && wButtons>=10 : 
-                
+                memory.push('2|9');
                 break;
             default:
                 console.log(memory);
@@ -250,7 +251,7 @@ async function writer(){
 };
 async function translater(){
     const text = [
-        "0|4","1|1","2|0","2|1","2|2","2|3","2|2","2|1","2|0","2|1","2|3","2|0","2|2","2|1","2|3","2|0","2|2","2|1","2|3","2|0","2|2","2|1","2|3","2|0","2|2","2|1","2|3","2|0","2|3","2|1","2|3","2|0","2|3","2|1","2|3","2|0","2|3","2|1","2|3","2|0","2|3","2|2","2|1","2|3","2|0","2|2","2|1","2|3","2|0","2|2","2|1","2|3","2|0","2|2","2|1","2|3","2|0","2|2","2|1","2|3","2|0","2|2","2|1","2|3","2|0","2|2","2|1","2|3","2|0","2|2","2|1","2|3","2|0","2|2","2|1","2|3","2|0","2|2","2|1","2|3","2|0","2|2","2|1","2|3","2|0","2|2","2|1","2|3","2|2","2|3","2|2","2|3","2|1","2|0","2|1","2|0","2|1","2|0","2|1","2|0","2|1","2|0","2|1","2|0","2|0","2|1","2|0","2|1","2|0","2|1","2|3","2|0","2|1","2|2","2|3","2|0","2|1","2|2","2|3","2|0"
+        '0|7',"1|2",'2|0', '2|1', '2|2', '2|3', '2|4', '2|5', '2|6', '2|5', '2|4', '2|3', '2|1', '2|2', '2|1', '2|3', '2|4', '2|2', '2|5', '2|2', '2|1', '2|0', '2|5', '2|3', '2|4', '2|2', '2|3', '2|1', '2|4', '2|0', '2|5', '2|1', '2|4', '2|2', '2|3', '2|3', '2|3', '2|3', '2|3', '2|3'
     ];
     for(let p=0;p<text.length;p++){
         let A = Number(text[p].split('|')[0]);
