@@ -110,3 +110,56 @@ body{
     font-size: 200%;
     transform: translateY(-50%);
 }
+.gameStart{
+    transform: translate(-50%,-50%);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 500px;
+    background-color: gray;
+    text-align: center;
+    border: solid 2px;
+    height: 200px;
+}
+.but{
+    background-color: gray;
+    width: 100%;
+    height: 50%;
+}
+.but button{
+    transition: background-color 0.5s,font-size 0.2s;
+    border: none;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 250%;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    height: 100%;
+}
+.but button:hover{
+    cursor: pointer;
+    background-color: rgb(71, 71, 71);
+    font-size: 270%;
+}
+#gameSolo{
+    display: none;
+}
+#gameCreator{
+    display: none;
+}
+#gamePlay{
+    height:100%;
+}
+
+#crDivBar{
+    display: flex;
+    height: 50px;
+    background-color: red;
+    width: 100%;
+}
+#crClassic{
+    flex: 1;
+    float: left;
+    background-color: white;
+}

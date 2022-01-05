@@ -5,7 +5,7 @@ const remP = document.querySelector('#scoreUpP');
 const remM = document.querySelector('#scoreDownP');
 let players=0,Buttons=0,divBLOCKSSS = [],storage = [],grc=true,dbb = [],ifitworkthenitsfine =[],rememberPlus = 0,rememberMinus=0,arx=[];
 //set
-let main_width = 1500;
+let main_width = 1000;
 let key1='y',key2='x',key3='c',key4='v',key5='b',key6='n',key7='m',key8='a',key9='s',key10='d';
 //auto
 let main_height = main_width/1.5;
@@ -13,6 +13,21 @@ let algor = (main_width/14.0625);
 mainDiv.style.height = main_height+'px';
 mainDiv.style.width = main_width+'px';
 //functions
+
+const docy = document.querySelector('.gameStart');
+function gamePlay(){
+    document.querySelector('#gameSolo').style.display = "block";
+    document.querySelector('#gameCreator').style.display = "block";
+    document.querySelector('#gamePlay').style.display = "none";
+};
+function gameSolo(){
+    docy.remove();
+    startGm();
+};
+function gameCreator(){
+    docy.remove();
+    startCr();
+};
 class movementBLOCK{
     moveX(d,a){
         if(d!==undefined){
@@ -203,57 +218,109 @@ const PADORU = async(value)=>{
     };
 };
 async function startGm(){
-    document.getElementById('startButton').remove();
     grc = false;
     //STARTUPGAME
-    translater();
+    const seed = ['0|7','1|1','2|1', '2|2', '2|0', '2|3', '2|1', '2|2', '2|0', '2|3', '2|4', '2|5', '2|6', '2|5', '2|4', '2|3', '2|2', '2|1', '2|2', '2|1', '2|2', '2|1', '2|2', '2|1', '2|2', '2|1']
+    translater(seed,true);
+};
+async function startCr(){
+    const fd = document.createElement('div');
+    fd.id = "text";
+    underDiv.append(fd);
+    grc = false;
+    writer(fd);
+    //STARTUPGAME
 };
 let wButtons = 7;
+const memory = [];
+const dv = document.createElement('div');
+const buttton = document.createElement('button');
+buttton.innerText = "TestPlay";
+dv.id = 'crDivBar';
+buttton.addEventListener('click',async()=>{
+    buttton.style.display = "none";
+    wButtons = 0;
+    await translater(memory,false);
+    const ae = document.querySelectorAll('#crClassic');
+    for(let dd=0;dd<ae.length;dd++){
+        ae[dd].style.backgroundColor = "white";
+    };
+    wButtons = 7; 
+    buttton.style.display = "block";
+});
+/*function testButton(){
+
+};*/
+function crReader(){
+    mainDiv.append(buttton);
+    document.body.append(dv);
+    dv.innerText = "";
+    changeButtons(4);
+    changePlayers(2);
+    for(let i=0;i<memory.length;i++){
+        const ndv = document.createElement('div');
+        ndv.id = "crClassic";
+        dv.append(ndv);
+        ndv.addEventListener('click',function(){
+            memory.splice(i,1);
+            crReader();
+        });
+        ndv.innerText = memory[i];
+    };
+};
 async function writer(){
-    const memory = [];
     document.addEventListener('keypress',async(event)=>{
         switch (true) {
             case (event.key==key1||event.key==key1.toLocaleUpperCase()) && wButtons>=1:
                 memory.push('2|0');
+                crReader();
                 break;
             case (event.key==key2||event.key==key2.toLocaleUpperCase()) && wButtons>=2:
                 memory.push('2|1');
+                crReader();
                 break;
             case (event.key==key3||event.key==key3.toLocaleUpperCase()) && wButtons>=3:
                 memory.push('2|2');
+                crReader();
                 break;
             case (event.key==key4||event.key==key4.toLocaleUpperCase()) && wButtons>=4:
                 memory.push('2|3');
+                crReader();
                 break;
             case (event.key==key5||event.key==key5.toLocaleUpperCase()) && wButtons>=5:
                 memory.push('2|4');
+                crReader();
                 break;
             case (event.key==key6||event.key==key6.toLocaleUpperCase()) && wButtons>=6 : 
                 memory.push('2|5');
+                crReader();
                 break;
             case (event.key==key7||event.key==key7.toLocaleUpperCase()) && wButtons>=7 : 
                 memory.push('2|6');
+                crReader();
                 break;
             case (event.key==key8||event.key==key8.toLocaleUpperCase()) && wButtons>=8 : 
                 memory.push('2|7');
+                crReader();
                 break;
             case (event.key==key9||event.key==key9.toLocaleUpperCase()) && wButtons>=9 : 
                 memory.push('2|8');
+                crReader();
                 break;
             case (event.key==key10||event.key==key10.toLocaleUpperCase()) && wButtons>=10 : 
                 memory.push('2|9');
+                crReader();
                 break;
             default:
-                console.log(memory);
-                break;
         };
     });
 };
-async function translater(){
-    const text = [
-        '0|7',"1|2",'2|0', '2|1', '2|2', '2|3', '2|4', '2|5', '2|6', '2|5', '2|4', '2|3', '2|1', '2|2', '2|1', '2|3', '2|4', '2|2', '2|5', '2|2', '2|1', '2|0', '2|5', '2|3', '2|4', '2|2', '2|3', '2|1', '2|4', '2|0', '2|5', '2|1', '2|4', '2|2', '2|3', '2|3', '2|3', '2|3', '2|3', '2|3'
-    ];
+async function translater(text,play){
     for(let p=0;p<text.length;p++){
+        if(!play){
+            const ae = document.querySelectorAll('#crClassic');
+            ae[p].style.backgroundColor = "green";
+        };
         let A = Number(text[p].split('|')[0]);
         let B = Number(text[p].split('|')[1]);
         switch (true) {

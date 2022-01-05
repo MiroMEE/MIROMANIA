@@ -15,6 +15,8 @@ app.use("/img", express.static(__dirname + "public/img"));
 app.get('/',(req,res)=>{
     res.render('index.ejs');
 });
-
+app.get('/z',(req,res)=>{
+    res.render('zzz.ejs');
+});
 
 server.listen(PORT, () => console.info(`Listening on port ${PORT}`));
